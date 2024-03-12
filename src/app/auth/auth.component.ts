@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatCard, MatCardContent} from "@angular/material/card";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
@@ -27,47 +27,49 @@ export class AuthComponent {
 
   authForm: FormGroup;
   viewTipe: string = "register";
-  constructor(private formBuilder:  FormBuilder, private authService: AuthService) {
-    this.authForm = this.formBuilder.group({
 
-    });
+  constructor(private formBuilder: FormBuilder, private authService: AuthService) {
+    this.authForm = this.formBuilder.group({});
     this.onSetViewType('login');
   }
-  onRegister () : void {
+
+  onRegister(): void {
     if (this.authForm.valid) {
       console.log(this.authForm.value);
       const body = this.authForm.value;
-      this.authService.register(body).subscribe((response:any):void => {
+      this.authService.register(body).subscribe((response: any): void => {
         console.log(response);
       })
     } else {
       alert("Formular invalid");
     }
   }
-  onSetViewType(viewType: string){
+
+  onSetViewType(viewType: string) {
     console.log(viewType);
     this.viewTipe = viewType;
 
-    switch (this.viewTipe){
+    switch (this.viewTipe) {
       case 'login':
         this.authForm = this.formBuilder.group({
-          email:["", Validators.required],
-          password:["", Validators.required],
+          email: ["", Validators.required],
+          password: ["", Validators.required],
         });
         break;
       case 'register':
         this.authForm = this.formBuilder.group({
-          username:["", Validators.required],
-          email:["", Validators.required],
-          password:["", Validators.required],
-          rePassword:["", Validators.required]
+          username: ["", Validators.required],
+          email: ["", Validators.required],
+          password: ["", Validators.required],
+          rePassword: ["", Validators.required]
         });
         break;
     }
   }
-  onLogin() : void{
+
+  onLogin(): void {
     console.log(this.authForm.value)
-    if(this.authForm.valid){
+    if (this.authForm.valid) {
       console.log(this.authForm.value);
 
       const body = this.authForm.value;
@@ -75,7 +77,7 @@ export class AuthComponent {
       request.subscribe((response: any) => {
         console.log(response)
       })
-    }else{
+    } else {
       alert("Formularul este invalid");
     }
   }
