@@ -11,6 +11,8 @@ import {AddUpdateItemComponent} from "../add-update-item/add-update-item.compone
 import {MatDrawer, MatDrawerContainer} from "@angular/material/sidenav";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {MatToolbar} from "@angular/material/toolbar";
+import {Router} from "@angular/router";
+import {CartButtonComponent} from "../cart-button/cart-button.component";
 
 @Component({
   selector: 'java64-home',
@@ -18,7 +20,7 @@ import {MatToolbar} from "@angular/material/toolbar";
   imports: [
     // MatCard,
     // MatCardContent
-    MatCardModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButton, ReactiveFormsModule, ListItemsComponent, AddUpdateItemComponent, MatDrawerContainer, MatSelect, MatOption, MatDrawer, MatToolbar, MatIconButton
+    MatCardModule, MatFormFieldModule, MatInputModule, MatIconModule, MatButton, ReactiveFormsModule, ListItemsComponent, AddUpdateItemComponent, MatDrawerContainer, MatSelect, MatOption, MatDrawer, MatToolbar, MatIconButton, CartButtonComponent
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
@@ -26,9 +28,19 @@ import {MatToolbar} from "@angular/material/toolbar";
 export class HomeComponent {
 
 
-  constructor(private itemService: ItemService) {
+  constructor(private itemService: ItemService, private router: Router) {
     this.itemService.read();
   }
+  onAdmin(){
+    this.router.navigate(["/", "admin"])
+  }
+  onLogout(){
+    this.router.navigate(["/", "auth"])
+  }
+  onHome(){
+    this.router.navigate(["/", "home"])
+  }
+
 }
 
 

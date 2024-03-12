@@ -6,6 +6,7 @@ import {MatInput} from "@angular/material/input";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {AuthService} from "../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-auth',
@@ -28,7 +29,7 @@ export class AuthComponent {
   authForm: FormGroup;
   viewTipe: string = "register";
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService) {
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) {
     this.authForm = this.formBuilder.group({});
     this.onSetViewType('login');
   }
@@ -68,7 +69,6 @@ export class AuthComponent {
   }
 
   onLogin(): void {
-    console.log(this.authForm.value)
     if (this.authForm.valid) {
       console.log(this.authForm.value);
 
@@ -76,6 +76,7 @@ export class AuthComponent {
       let request = this.authService.login(body);
       request.subscribe((response: any) => {
         console.log(response)
+        this.router.navigate(["/", "home"])
       })
     } else {
       alert("Formularul este invalid");

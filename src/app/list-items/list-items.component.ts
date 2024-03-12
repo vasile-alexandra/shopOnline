@@ -4,6 +4,7 @@ import {MatCard, MatCardContent} from "@angular/material/card";
 import {NgForOf, NgIf} from "@angular/common";
 import {MatButton} from "@angular/material/button";
 import {ItemService} from "../services/item.service";
+import {CartService} from "../services/cart.service";
 
 @Component({
   selector: 'app-list-items',
@@ -27,7 +28,7 @@ export class ListItemsComponent {
   // ascunde butoanele de update si delete cand suntem pe pagina de home si afiseaza butonul de buy
   @Input({transform: booleanAttribute, alias: "showBuyButton"}) showBuyButton: boolean = true;
 
-  constructor(private itemService: ItemService) {
+  constructor(private itemService: ItemService, private cartService: CartService) {
     itemService.getItemsList().subscribe((itemsListFromService: Array<Item>) => {
       this.itemsList = itemsListFromService;
     })
@@ -49,5 +50,6 @@ export class ListItemsComponent {
 
   onBuy(item: Item) {
     console.log(item);
+    this.cartService.addToCart(item);
   }
 }
